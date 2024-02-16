@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Homepage'),
+        title: Text('Inicio'),
         actions: [
           IconButton(
             onPressed: _logout,

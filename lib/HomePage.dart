@@ -178,6 +178,10 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       _addPublication(text, imageUrl); // Agrega la nueva publicación
                       Navigator.pop(context); // Cierra el diálogo
+                      Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
                     },
                     child: Text('Publicar'),
                   ),
@@ -209,6 +213,15 @@ class _PublicationCard extends StatelessWidget {
             title: Text(publication['text']),
             subtitle: Text('Author: ${publication['author']['username']}'),
           ),
+          if (publication['imageUrl'] != null) // Verifica si hay una URL de imagen
+            Container(
+              width: 500.0, // Establece el ancho del contenedor
+              height: 500.0, // Establece la altura del contenedor
+              child: Image.network(
+                publication['imageUrl'],
+                fit: BoxFit.cover, // Ajusta la imagen para cubrir el espacio disponible
+              ),
+            ),
           SizedBox(height: 10.0),
           ..._buildComments(publication['comments']),
           SizedBox(height: 10.0),
@@ -237,6 +250,10 @@ class _PublicationCard extends StatelessWidget {
                         onPressed: () {
                           addComment(publication['id'], commentText); // Agrega el nuevo comentario
                           Navigator.pop(context); // Cierra el diálogo
+                          Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
                         },
                         child: Text('Enviar'),
                       ),
@@ -255,7 +272,7 @@ class _PublicationCard extends StatelessWidget {
   List<Widget> _buildComments(List<dynamic> comments) {
     return comments.map((comment) {
       return ListTile(
-        title: Text(comment['text']),
+        title: Text('Comentario: ${comment['text']}'), // Agrega el título "Comentario:"
         subtitle: Text('Author: ${comment['username']}'),
         trailing: Text(comment['creationDate']),
       );
